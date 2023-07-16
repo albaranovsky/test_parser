@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <style media="screen">
+        body {
+            background: rgba(0, 0, 0, 0.9);
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        caption {
+            padding: 10px;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        table,
+        th,
+        td {
+            padding: 5px;
+            border: 1px solid white;
+        }
+    </style>
+
+    <title>Результат парсинга</title>
+</head>
+<body>
+<a href="{% url 'index' %}"> Назад</a>
+<table>
+    <caption>ИСХОДНЫЕ ДАННЫЕ</caption>
+    <thead>
+    <tr>
+        <th rowspan="3">Дата</th>
+        <th rowspan="3">id</th>
+        <th rowspan="3">company</th>
+        <th colspan="4">fact</th>
+        <th colspan="4">forecast</th>
+    </tr>
+    <tr>
+        <th colspan="2">Qliq</th>
+        <th colspan="2">Qoil</th>
+        <th colspan="2">Qliq</th>
+        <th colspan="2">Qoil</th>
+    </tr>
+    <tr>
+        <th>data1</th>
+        <th>data2</th>
+        <th>data1</th>
+        <th>data2</th>
+        <th>data1</th>
+        <th>data2</th>
+        <th>data1</th>
+        <th>data2</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in data %}
+        <tr>
+            <td>{{ item.on_date|date:"d.m.Y" }}</td>
+            <td>{{ item.row_id }}</td>
+            <td>{{ item.company }}</td>
+            <td>{{ item.fact_qliq_data1 }}</td>
+            <td>{{ item.fact_qliq_data2 }}</td>
+            <td>{{ item.fact_qoil_data1 }}</td>
+            <td>{{ item.fact_qoil_data2 }}</td>
+            <td>{{ item.forecast_qliq_data1 }}</td>
+            <td>{{ item.forecast_qliq_data2 }}</td>
+            <td>{{ item.forecast_qoil_data1 }}</td>
+            <td>{{ item.forecast_qoil_data2 }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'index' %}"> Назад</a>
+</body>
+</html>
