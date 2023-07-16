@@ -19,5 +19,7 @@ def index(request):
 
 
 def result(request):
-    context = {'data': Data.objects.all()}
+    context = {
+        'data': Data.objects.all(),
+        'totals': Data.totals.all()}
     return render(request, 'parser/result.html', context)
