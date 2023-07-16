@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 from .models import Data
 from .parser import add_date_column, open_sheet, parse_sheet
@@ -13,4 +13,11 @@ def index(request):
         for item in data:
             Data.objects.create(**item)
 
+        return redirect('result')
+
     return render(request, 'parser/index.html')
+
+
+def result(request):
+    context = {'data': Data.objects.all()}
+    return render(request, 'parser/result.html', context)
