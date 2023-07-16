@@ -74,6 +74,29 @@
     {% endfor %}
     </tbody>
 </table>
+<table>
+    <caption>ИТОГИ ПО ДНЯМ</caption>
+    <thead>
+    <tr>
+        <th>Дата</th>
+        <th>fact_qliq_sum</th>
+        <th>fact_qoil_sum</th>
+        <th>forecast_qliq_sum</th>
+        <th>forecast_qoil_sum</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in totals %}
+        <tr>
+            <td>{{ item.on_date|date:"d.m.Y" }}</td>
+            <td>{{ item.fact_qliq_sum }}</td>
+            <td>{{ item.fact_qoil_sum }}</td>
+            <td>{{ item.forecast_qliq_sum }}</td>
+            <td>{{ item.forecast_qoil_sum }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
 <a href="{% url 'index' %}"> Назад</a>
 </body>
 </html>
