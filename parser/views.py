@@ -19,11 +19,13 @@ def index(request):
         else:
             return redirect('result')
 
-    return render(request, 'parser/index.html', {'err_message': err_message})
+    return render(request, 'parser/index.html', {
+        'err_message': err_message
+    })
 
 
 def result(request):
-    context = {
+    return render(request, 'parser/result.html', {
         'data': Data.objects.all(),
-        'totals': Data.totals.all()}
-    return render(request, 'parser/result.html', context)
+        'totals': Data.totals.all()
+    })
