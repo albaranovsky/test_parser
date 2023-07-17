@@ -8,13 +8,13 @@ def index(request):
     err_message = ''
     bulk_list = []
     if request.method == 'POST':
+        Data.objects.all().delete()
         try:
             sheet = open_sheet(request.FILES['xls_file'])
             rows = parse_sheet(sheet)
             add_date_column(rows)
             for row in rows:
                 bulk_list.append(Data(**row))
-            Data.objects.all().delete()
             Data.objects.bulk_create(bulk_list)
         except Exception as e:
             err_message = str(e)
