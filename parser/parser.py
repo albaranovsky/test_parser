@@ -52,9 +52,9 @@ def parse_sheet(sheet: Worksheet) -> list[dict]:
 def add_date_column(data: list[dict]):
     date = START_DATE
     companies_per_day = []
-    for item in data:
-        if item['company'] in companies_per_day:
+    for row in data:
+        if row['company'] in companies_per_day:
             companies_per_day.clear()
             date += datetime.timedelta(days=1)
-        companies_per_day.append(item['company'])
-        item['on_date'] = date
+        companies_per_day.append(row['company'])
+        row['on_date'] = date
