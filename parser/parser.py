@@ -14,7 +14,7 @@ COL_FORECAST_QLIQ_DATA1 = 7
 COL_FORECAST_QLIQ_DATA2 = 8
 COL_FORECAST_QOIL_DATA1 = 9
 COL_FORECAST_QOIL_DATA2 = 10
-START_DATE = datetime.datetime(2023, 1, 1)
+START_DATE = datetime.date(2023, 1, 1)
 
 
 def open_sheet(path) -> Worksheet:
