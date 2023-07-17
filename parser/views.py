@@ -28,6 +28,6 @@ def index(request):
 
 def result(request):
     return render(request, 'parser/result.html', {
-        'data': Data.objects.all(),
+        'rows': Data.objects.all(),
         'totals': Data.totals.all()
     })

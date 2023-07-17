@@ -23,7 +23,7 @@ def open_sheet(path) -> Worksheet:
 
 
 def parse_sheet(sheet: Worksheet) -> list[dict]:
-    data = []
+    rows = []
     for i in range(ROW_START_DATA, sheet.max_row + 1):
         row = {
             'row_id': sheet.cell(row=i, column=COL_ROW_ID).value,
@@ -45,14 +45,14 @@ def parse_sheet(sheet: Worksheet) -> list[dict]:
             'forecast_qoil_data2': sheet.cell(
                 row=i, column=COL_FORECAST_QOIL_DATA2).value
         }
-        data.append(row)
-    return data
+        rows.append(row)
+    return rows
 
 
-def add_date_column(data: list[dict]):
+def add_date_column(rows: list[dict]):
     date = START_DATE
     companies_per_day = []
-    for row in data:
+    for row in rows:
         if row['company'] in companies_per_day:
             companies_per_day.clear()
             date += datetime.timedelta(days=1)
