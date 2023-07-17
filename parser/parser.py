@@ -50,6 +50,8 @@ def parse_sheet(sheet: Worksheet) -> list[dict]:
 
 
 def add_date_column(rows: list[dict]):
+    # В задании не указан алгоритм добавления даты. Здесь предполагается, что
+    # в исходных данных указаны суммарные значения за день по каждой компании.
     date = START_DATE
     companies_per_day = []
     for row in rows:
