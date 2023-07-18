@@ -1,6 +1,7 @@
 import datetime
 import random
 
+from django.conf import settings
 from openpyxl import load_workbook
 from openpyxl.worksheet.worksheet import Worksheet
 
@@ -51,7 +52,7 @@ def parse_sheet(sheet: Worksheet) -> list[dict]:
     return rows
 
 
-def add_date_column(rows: list[dict]):
+def _add_date_by_company(rows: list[dict]):
     # В задании не указан алгоритм добавления даты. Здесь предполагается, что
     # в исходных данных указаны суммарные значения за день по каждой компании.
     date = START_DATE
@@ -64,8 +65,22 @@ def add_date_column(rows: list[dict]):
         row['on_date'] = date
 
 
-def add_date_by_random(rows: list[dict]):
+def _add_date_by_random(rows: list[dict]):
     for row in rows:
         delta = random.randrange(0, DATE_RANDOM_DELTA)
         date = START_DATE + datetime.timedelta(days=delta)
         row['on_date'] = date
+
+
+def add_date_column(rows: list[dict]):
+    if hasattr(settings, 'DATE_COL_ALGO'):
+        if settings.DATE_COL_ALGO == 'random':
+            _add_date_by_random(rows)
+        elif settings.DATE_COL_ALGO == 'company':
+            _add_date_by_company(rows)
+        else:
+            raise ValueError(
+                f'Unknown algo: {settings.DATE_COL_ALGO}. '
+                'Please correct your settings.')
+    else:
+        _add_date_by_company(rows)
