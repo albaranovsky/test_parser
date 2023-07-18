@@ -1,4 +1,5 @@
 import datetime
+import random
 
 from openpyxl import load_workbook
 from openpyxl.worksheet.worksheet import Worksheet
@@ -15,6 +16,7 @@ COL_FORECAST_QLIQ_DATA2 = 8
 COL_FORECAST_QOIL_DATA1 = 9
 COL_FORECAST_QOIL_DATA2 = 10
 START_DATE = datetime.date(2023, 1, 1)
+DATE_RANDOM_DELTA = 4
 
 
 def open_sheet(path) -> Worksheet:
@@ -59,4 +61,11 @@ def add_date_column(rows: list[dict]):
             companies_per_day.clear()
             date += datetime.timedelta(days=1)
         companies_per_day.append(row['company'])
+        row['on_date'] = date
+
+
+def add_date_by_random(rows: list[dict]):
+    for row in rows:
+        delta = random.randrange(0, DATE_RANDOM_DELTA)
+        date = START_DATE + datetime.timedelta(days=delta)
         row['on_date'] = date
